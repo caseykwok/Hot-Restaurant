@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reservations</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+	<div class="container">
+	
+		<div class="jumbotron center">
+			<h1><span class="glyphicon glyphicon-fire"></span> Hot Restaurant</h1>
+			<hr>
+			<h2>Current Reservations and Waiting List</h2>
+			<br>
+			<a class="btn btn-danger btn-lg" href="/reserve" role="button"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation</a>
+			<a class="btn btn-default btn-lg" href="/" role="button"><span class="glyphicon glyphicon-home"></span></a>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading panel-form-font"><strong>Current Reservations</strong></div>
+			<div class="panel-body reservations">
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading panel-form-font"><strong>Waiting List</strong></div>
+			<div class="panel-body waitlist">
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<p><a href="/apiReservations">API Reservations</a> | <a href="/apiWaitlist">API Waitlist</a></p>
+		</div>
+
+	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		// Populate the reservation div
+		$.get("/apiReservations", function(data) {
+			// console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var span = $("<span>");
+				span.addClass("label label-primary");
+				span.text(i + 1);
+				var header = $("<h2>");
+				header.text(" | " + data[i].uniqueId);
+				header.prepend(span);
+				var div = $("<div>");
+				div.addClass("well well-lg");
+				div.append(header);
+				$(".reservations").append(div);
+			}
+		});
+
+		// Populate the waitlist div
+		$.get("/apiWaitlist", function(data) {
+			// console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				var span = $("<span>");
+				span.addClass("label label-primary");
+				span.text(i + 1);
+				var header = $("<h2>");
+				header.text(" | " + data[i].uniqueId);
+				header.prepend(span);
+				var div = $("<div>");
+				div.addClass("well well-lg");
+				div.append(header);
+				$(".waitlist").append(div);
+			}
+		});
+	</script>
+</body>
+</html>
