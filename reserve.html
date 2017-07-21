@@ -69,7 +69,7 @@
 			$("#unique-id").val("");
 
 			// The alert message is dependent on whether the user is added to the reservations or waitlist
-			$.post("/reserve", newReservation)
+			$.post("/api/reservations", newReservation)
 			.done(function(data) {
 				console.log(data);
 				alert(data);
