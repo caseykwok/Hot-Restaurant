@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/static", express.static(path.join(__dirname, "public")));
 
 var reservations = [
 	{
@@ -57,11 +57,11 @@ app.get("/reservations?", function(req, res) {
 	res.sendFile(path.join(__dirname, "/reservations.html"));
 });
 
-app.get("/apiReservations", function(req, res) {
+app.get("/api/reservations", function(req, res) {
 	res.json(reservations);
 });
 
-app.get("/apiWaitlist", function(req, res) {
+app.get("/api/waitlist", function(req, res) {
 	res.json(waitingList);
 });
 
